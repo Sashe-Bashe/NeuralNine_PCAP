@@ -1,0 +1,67 @@
+__all__ = ['temp']
+
+# Don't look below, you will not understand this Python code :) I don't.
+
+from js2py.pyjs import *
+# setting scope
+var = Scope( JS_BUILTINS )
+set_global_object(var)
+
+# Code follows:
+var.registers(['toastNotif', 'toastActionsCustom', 'toastVisual', 'adaptiveGroup', 'toastButton', 'toastContent', 'notifLib', 'toastBindingGeneric', 'adaptiveText', 'toastGenericHeroImage', 'adaptiveImage', 'adaptiveSubgroup'])
+var.put('notifLib', var.get('Microsoft').get('Toolkit').get('Uwp').get('Notifications'))
+var.put('toastContent', var.get('notifLib').get('ToastContent').create())
+var.put('toastVisual', var.get('notifLib').get('ToastVisual').create())
+var.put('toastBindingGeneric', var.get('notifLib').get('ToastBindingGeneric').create())
+var.put('toastGenericHeroImage', var.get('notifLib').get('ToastGenericHeroImage').create())
+var.get('toastGenericHeroImage').put('source', Js('Assets/Apps/Food/Food1.jpg'))
+var.get('toastBindingGeneric').put('heroImage', var.get('toastGenericHeroImage'))
+var.put('adaptiveText', var.get('notifLib').get('AdaptiveText').create())
+var.get('adaptiveText').put('text', Js('New suggested restaurant'))
+var.get('adaptiveText').put('hintMaxLines', Js(1.0))
+var.get('toastBindingGeneric').get('children').callprop('push', var.get('adaptiveText'))
+var.put('adaptiveText', var.get('notifLib').get('AdaptiveText').create())
+var.get('adaptiveText').put('text', Js("There's a popular chinese restaurant near you that we think you'd like!"))
+var.get('toastBindingGeneric').get('children').callprop('push', var.get('adaptiveText'))
+var.put('adaptiveImage', var.get('notifLib').get('AdaptiveImage').create())
+var.get('adaptiveImage').put('source', Js('Assets/Apps/Food/RestaurantMap.jpg'))
+var.get('toastBindingGeneric').get('children').callprop('push', var.get('adaptiveImage'))
+var.put('adaptiveGroup', var.get('notifLib').get('AdaptiveGroup').create())
+var.put('adaptiveSubgroup', var.get('notifLib').get('AdaptiveSubgroup').create())
+var.put('adaptiveText', var.get('notifLib').get('AdaptiveText').create())
+var.get('adaptiveText').put('text', Js('Pho Licious'))
+var.get('adaptiveText').put('hintStyle', var.get('notifLib').get('AdaptiveTextStyle').get('body'))
+var.get('adaptiveSubgroup').get('children').callprop('push', var.get('adaptiveText'))
+var.put('adaptiveText', var.get('notifLib').get('AdaptiveText').create())
+var.get('adaptiveText').put('text', Js('4.6 stars'))
+var.get('adaptiveText').put('hintStyle', var.get('notifLib').get('AdaptiveTextStyle').get('captionSubtle'))
+var.get('adaptiveSubgroup').get('children').callprop('push', var.get('adaptiveText'))
+var.get('adaptiveGroup').get('children').callprop('push', var.get('adaptiveSubgroup'))
+var.put('adaptiveSubgroup', var.get('notifLib').get('AdaptiveSubgroup').create())
+var.put('adaptiveText', var.get('notifLib').get('AdaptiveText').create())
+var.get('adaptiveText').put('text', Js('4018 148th Ave NE, Redmond, WA 98052'))
+var.get('adaptiveText').put('hintStyle', var.get('notifLib').get('AdaptiveTextStyle').get('captionSubtle'))
+var.get('adaptiveText').put('hintWrap', Js(True))
+var.get('adaptiveText').put('hintAlign', var.get('notifLib').get('AdaptiveTextAlign').get('right'))
+var.get('adaptiveSubgroup').get('children').callprop('push', var.get('adaptiveText'))
+var.get('adaptiveSubgroup').put('hintTextStacking', var.get('notifLib').get('AdaptiveSubgroupTextStacking').get('bottom'))
+var.get('adaptiveGroup').get('children').callprop('push', var.get('adaptiveSubgroup'))
+var.get('toastBindingGeneric').get('children').callprop('push', var.get('adaptiveGroup'))
+var.get('toastVisual').put('bindingGeneric', var.get('toastBindingGeneric'))
+var.get('toastContent').put('visual', var.get('toastVisual'))
+var.put('toastActionsCustom', var.get('notifLib').get('ToastActionsCustom').create())
+var.put('toastButton', var.get('notifLib').get('ToastButton').create(Js('Map'), Js('bingmaps:?q=4018 148th Ave NE, Redmond, WA 98052')))
+var.get('toastButton').put('activationType', var.get('notifLib').get('ToastActivationType').get('protocol'))
+var.get('toastActionsCustom').get('buttons').callprop('push', var.get('toastButton'))
+var.put('toastButton', var.get('notifLib').get('ToastButton').create(Js('Reviews'), Js('action=viewRestaurantReviews&restaurantId=92187')))
+var.get('toastButton').put('activationType', var.get('notifLib').get('ToastActivationType').get('foreground'))
+var.get('toastActionsCustom').get('buttons').callprop('push', var.get('toastButton'))
+var.get('toastContent').put('actions', var.get('toastActionsCustom'))
+var.get('toastContent').put('launch', Js('action=viewRestaurant&restaurantId=92187'))
+var.put('toastNotif', var.get('Windows').get('UI').get('Notifications').get('ToastNotification').create(var.get('toastContent').callprop('getXml')))
+var.get('Windows').get('UI').get('Notifications').get('ToastNotificationManager').callprop('createToastNotifier').callprop('show', var.get('toastNotif'))
+pass
+
+
+# Add lib to the module scope
+temp = var.to_python()
